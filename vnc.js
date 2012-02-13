@@ -5,10 +5,9 @@
 // - cross-browser
 // - close alert
 b.style.margin=r=s=v=0;
-Q=u=[];
+Q=[];
 O=255;
-W=MozWebSocket||WebSocket;
-S = new W("ws://"+location.search.slice(1),"base64");
+S=new(window.MozWebSocket||WebSocket)("ws://"+location.search.slice(1),"base64");
 // F(event.type==ke[y]press) -> onkeypress
 // F(event.type==ke[y]press,down) -> send key event
 // F(event.type==mo[u]sedown) -> send mousedown event
@@ -38,7 +37,7 @@ F=function(a,b,c) {
 //            :b+1? null
 //            : console.log("F: " + "send FBU request");
     return t=='y'?
-                b+1? F([4,b,0,0,0,0,0,a.which]) : (F(a,1),F(a,0))
+                b+1? F(F([4,b,0,0],0,a.which)) : (F(a,1),F(a,0))
             :t=='u'? F(F([5,T[5]=="d"?1:0],a.pageX,a.pageY))
             :a.pop?
                 c+1? a.concat(b>>8,b&O,c>>8,c&O)
