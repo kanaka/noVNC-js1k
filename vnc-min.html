@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title>JS1k, 1k demo submission [ID]</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <canvas id="c"></canvas>
+        <script>
+            var b = document.body;
+            var c = document.getElementsByTagName('canvas')[0];
+            var a = c.getContext('2d');
+            document.body.clientWidth; // fix bug in webkit: http://qfox.nl/weblog/218
+        </script>
+        <script>
+// start of submission //
+b.style.margin=r=s=v=0;Q=[];O=255;S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),"base64");F=function(a,b,c){a=a?a:NaN;t=(T=a.type)?T[2]:0;return t=='y'?b+1?F(F([4,b,0,0],0,a.which)):(F(a,1),F(a,0)):t=='u'?F(F([5,T[5]=="d"?1:0],a.pageX,a.pageY)):a.pop?c+1?a.concat(b>>8,b&O,c>>8,c&O):b+1?(a[b]<<8)+a[b+1]:F(a.map(F).join(""),-1):b<0?S.send(btoa(a)):a[0]?a.charCodeAt(0):b+1?String.fromCharCode(a):(F([3,v].concat(u)),v=1)};S.onmessage=function(e){q=[].map.call(atob(e.data),F);if(s==2){u=F([0,0,0,0],c.width=F(q,0),c.height=F(q,2));setInterval(onmousedown=onmouseup=onmousemove=onkeypress=F,O)}if(s<3){F(["RFB 003.003\n",[1],[2,0,0,1,0,0,0,0]][s++],-1)}else{L=Q.push.apply(Q,q);t=Q[0];if(!r){l=[20,1,2,8+F(Q,6)][t];if(L<l)return;if(t==0)r=F(Q,2),l=4;Q.splice(0,l)}for(;r;r--){w=F(Q,4),h=F(Q,6);l=12+4*w*h;if(!l||Q.length<l)break;I=a.createImageData(w,h);z=I.data;for(i=0,j=12;j<l;i+=4,j+=4){for(k=0;k<3;k++)z[i+k]=Q[j+2-k];z[i+3]=O}a.putImageData(I,F(Q,0),F(Q,2));Q.splice(0,l)}}}
+// end of submission //
+        </script>
+    </body>
+</html>

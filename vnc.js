@@ -7,7 +7,8 @@
 b.style.margin=r=s=v=0;
 Q=[];
 O=255;
-S=new(window.MozWebSocket||WebSocket)("ws://"+location.search.slice(1),"base64");
+S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),"base64");
+
 // F(event.type==ke[y]press) -> onkeypress
 // F(event.type==ke[y]press,down) -> send key event
 // F(event.type==mo[u]sedown) -> send mousedown event
@@ -39,6 +40,7 @@ F=function(a,b,c) {
     return t=='y'?
                 b+1? F(F([4,b,0,0],0,a.which)) : (F(a,1),F(a,0))
             :t=='u'? F(F([5,T[5]=="d"?1:0],a.pageX,a.pageY))
+            //:t=='s'? "onmessage"
             :a.pop?
                 c+1? a.concat(b>>8,b&O,c>>8,c&O)
                 :b+1? (a[b]<<8)+a[b+1] 
@@ -48,19 +50,17 @@ F=function(a,b,c) {
             :a[0]? a.charCodeAt(0)
             :b+1? String.fromCharCode(a)
             :(F([3,v].concat(u)),v=1)
-}
+};
+
 S.onmessage = function (e) {
     q = [].map.call(atob(e.data),F);
     //if (q.length < 30) { console.log("q (" + q.length + "): " + q);
     //} else { console.log("q[0..30] (" + q.length + "): " + q.slice(0,30)) }
     if (s==2) {
-        w = c.width = F(q,0);
-        h = c.height = F(q,2);
-        console.log("Connected: width " + w + " height " + h);
-        u = F([0,0,0,0],w,h);
-        setInterval(F,O);
+        console.log("Connected: width " + F(q,0) + " height " + F(q,0));
+        u = F([0,0,0,0],c.width=F(q,0),c.height=F(q,2));
+        setInterval(onmousedown=onmouseup=onmousemove=onkeypress=F,O);
             //setTimeout(F, 200);
-        onmousedown=onmouseup=onmousemove=onkeypress=F;
     }
     if (s<3) {
         F(["RFB 003.003\n",[1],[2,0,0,1,0,0,0,0]][s++],-1)
