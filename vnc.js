@@ -11,14 +11,19 @@ S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),'base64');
 
 // A(d,e,f,g,h) -> concat shorts onto array d
 A=function(d,e,f,g,h){return e+1?A(d.concat(e>>8,e&Z),f,g,h):d};
+
 // B(array,e) -> peek short from array starting at position e
 B=function(d,e,f,g,h){return (d[e]<<8)+d[e+1]};
+
 // C(array/string) -> send array or string via websocket
 C=function(d,e,f,g,h){return d.map?C(d.map(E).join('')):S.send(btoa(d))};
+
 // D(character) -> return character code
 D=function(d,e,f,g,h){return d.charCodeAt(0)};
+
 // E(number) -> return character for number code
 E=function(d,e,f,g,h){return String.fromCharCode(d)};
+
 // F() -> send FBU request
 F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
 //
@@ -27,23 +32,23 @@ F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
 // V(event.type==mo[u]sedown) -> send mousedown event
 // V(event.type==mo[u]seup) -> send mouseup event
 // V(event.type==mo[u]semove) -> send mouse move event
-V=function(d,e,f,g,h){return T=d.type,t=d.which,C(T[2]=='y'?
-                        A([4,1],0,0,t).concat(A([4,0],0,0,t))
-                         :A([5,T[5]=='d'?1:0],d.pageX,d.pageY))
-};
-// VNC handshake
-M=function(d,e,f,g,h){
+M=function(d,e,f,g,h){return T=d.type,C(A([5,T[5]=='d'?1:0],d.pageX,d.pageY))};
+K=function(d,e,f,g,h){return T=d.which,C(A([4,1],0,0,T).concat(A([4,0],0,0,T)))};
+// RFB/VNC handshake
+R=function(d,e,f,g,h){
     //if (d.length < 30) { console.log('d (' + d.length + '): ' + d);
     //} else { console.log('d[0..30] (' + d.length + '): ' + d.slice(0,30)) }
     return s==2 ? (
         W=c.width=B(d,0),H=c.height=B(d,2),
         console.log('Connected: width ' + W + ' height ' + H),
-        onmousedown=onmouseup=onmousemove=onkeypress=V,
+        onkeypress=K,
+        onmousedown=onmouseup=onmousemove=M,
         setInterval(F,Z))
         : 0,
     s<3 ? C(['RFB 003.003\n',[1],A([2,0],1,0,0)][s++])
         : G(Q.push.apply(Q,d));
 };
+
 // Normal VNC message. Length of Q in d
 G=function(d,e,f,g,h){
     t = Q[0];
@@ -72,5 +77,6 @@ G=function(d,e,f,g,h){
         Q.splice(0,l)
     }
 };
-S.onmessage=function(d,e,f,g,h){return M([].map.call(atob(d.data),D))};
+
+S.onmessage=function(d,e,f,g,h){return R([].map.call(atob(d.data),D))};
 S.onclose=function(d,e,f,g,h){return console.log('closed: ' + a.code + ', ' + a.reason); }
