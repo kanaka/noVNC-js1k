@@ -27,13 +27,13 @@ E=function(d,e,f,g,h){return String.fromCharCode(d)};
 // F() -> send FBU request
 F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
 //
-// V(event.type==ke[y]press) -> onkeypress
-// V(event.type==ke[y]press,down) -> send key event
-// V(event.type==mo[u]sedown) -> send mousedown event
-// V(event.type==mo[u]seup) -> send mouseup event
-// V(event.type==mo[u]semove) -> send mouse move event
-M=function(d,e,f,g,h){return T=d.type,C(A([5,T[5]=='d'?1:0],d.pageX,d.pageY))};
-K=function(d,e,f,g,h){return T=d.which,C(A([4,1],0,0,T).concat(A([4,0],0,0,T)))};
+// M(event.type==mouse[d]own) -> send mousedown event
+// M(event.type==mouse[u]p) -> send mouseup event
+// M(event.type==mouse[m]ove) -> send mouse move event
+M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
+// K(event.type==key[d]own) -> send key down event
+// K(event.type==key[u]p) -> send key up event
+K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,d.which))};
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
     //if (d.length < 30) { console.log('d (' + d.length + '): ' + d);
@@ -41,7 +41,7 @@ R=function(d,e,f,g,h){
     return s==2 ? (
         W=c.width=B(d,0),H=c.height=B(d,2),
         console.log('Connected: width ' + W + ' height ' + H),
-        onkeypress=K,
+        onkeydown=onkeyup=K,
         onmousedown=onmouseup=onmousemove=M,
         setInterval(F,Z))
         : 0,
