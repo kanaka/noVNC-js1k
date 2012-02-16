@@ -33,7 +33,7 @@ F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
 M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
 // K(event.type==key[d]own) -> send key down event
 // K(event.type==key[u]p) -> send key up event
-K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,d.which))};
+K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?Z<<8:0)))};
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
     //if (d.length < 30) { console.log('d (' + d.length + '): ' + d);
