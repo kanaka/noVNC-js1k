@@ -34,8 +34,7 @@ M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
 // K(event.type==key[u]p) -> send key up event
 //K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?Z<<8:0)))};
 //K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:!d.shiftKey<<5, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
-//K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
-K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,{61:45,58:59,59:58,63:47}[k]||k))};
 
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
