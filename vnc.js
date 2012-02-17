@@ -1,9 +1,7 @@
 // TODO:
 // - mouse drag
 // - mouse middle,right,wheel (suppress default behavior)
-// - special key 0xff00 translation
-// - cross-browser
-// - close alert
+// - open and close alert
 b.style.margin=r=s=v=0;
 Q=[];
 Z=255;
@@ -26,14 +24,19 @@ E=function(d,e,f,g,h){return String.fromCharCode(d)};
 
 // F() -> send FBU request
 F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
-//
+
 // M(event.type==mouse[d]own) -> send mousedown event
 // M(event.type==mouse[u]p) -> send mouseup event
 // M(event.type==mouse[m]ove) -> send mouse move event
 M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
+
 // K(event.type==key[d]own) -> send key down event
 // K(event.type==key[u]p) -> send key up event
-K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?Z<<8:0)))};
+//K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?Z<<8:0)))};
+//K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:!d.shiftKey<<5, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+//K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
     //if (d.length < 30) { console.log('d (' + d.length + '): ' + d);
@@ -46,16 +49,16 @@ R=function(d,e,f,g,h){
         setInterval(F,Z))
         : 0,
     s<3 ? C(['RFB 003.003\n',[1],A([2,0],1,0,0)][s++])
-        : G(Q.push.apply(Q,d));
+        : N(Q.push.apply(Q,d));
 };
 
 // Normal VNC message. Length of Q in d
-G=function(d,e,f,g,h){
+N=function(d){
     t = Q[0];
     if (!r) {
         l = [20,1,2,8+B(Q,6)][t];
         if (d<l) return;
-        if (t==0) r=B(Q,2),l=4;
+        if (!t) r=B(Q,2),l=4;
         //if (t==0) console.log('new FBU, rects: ' + r);
         Q.splice(0,l)
     }
@@ -77,6 +80,5 @@ G=function(d,e,f,g,h){
         Q.splice(0,l)
     }
 };
-
 S.onmessage=function(d,e,f,g,h){return R([].map.call(atob(d.data),D))};
-S.onclose=function(d,e,f,g,h){return console.log('closed: ' + a.code + ', ' + a.reason); }
+//S.onclose=function(d,e,f,g,h){return alert('closed')};
