@@ -29,7 +29,6 @@ M=function(d,e,f,g,h){return C(A([5,m],d.pageX,d.pageY))};
 
 // M(event.type==mousedown) -> send mouse button event
 // M(event.type==mouseup) -> send mouse button event
-//N=function(d,e,f,g,h){return m^=1<<d.button,M(d)};
 N=function(d,e,f,g,h){return m^=1,M(d)};
 
 // K(event.type==key[d]own) -> send key down event
@@ -78,6 +77,20 @@ K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
 //                        console.log("keyCode: " + d.keyCode + " k: " + k),
 //                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
 
+// Support all buttons and suppress bubbling and default actions
+////U=function(d,e,f,g,h){return d.stopPropagation(),d.preventDefault(),false};
+////M=function(d,e,f,g,h){return C(A([5,m],d.pageX,d.pageY)),U(d)};
+////N=function(d,e,f,g,h){return d.type[5]=='d'?m|=1<<d.button:m&=Z-1<<d.button,M(d)};
+////// More symbol support with default action suppression (for tab)
+////K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
+////                               k += k<16 ? Z<<8
+////                                         : k<32 ? 65490
+////                                                : k<64 ? -e/2
+////                                                       : k<128 ? 32-e
+////                                                               : k<192 ? e/2-144 : e-128,
+////                        console.log("keyCode: " + d.keyCode + " k: " + k),
+////                        C(A([4,d.type[3]=='d'?1:0],0,0,k)),U(d)};
+
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
     //if (d.length < 30) { console.log('d (' + d.length + '): ' + d);
@@ -86,6 +99,7 @@ R=function(d,e,f,g,h){
         W=c.width=B(d,0),H=c.height=B(d,2),
         console.log('Connected: width ' + W + ' height ' + H),
         onkeydown=onkeyup=K,onmousemove=M,onmousedown=onmouseup=N,
+////        oncontextmenu=U,
         setInterval(F,Z))
         : 0,
     s<3 ? C(['RFB 003.003\n',[1],A([2,0],1,0,0)][s++])
