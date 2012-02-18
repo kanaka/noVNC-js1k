@@ -36,15 +36,38 @@ M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
 //K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:!d.shiftKey<<5, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
 //K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,{61:45,58:59,59:58,63:47}[k]||k))};
 
+// 1008
 //K=function(d,e,f,g,h){return k=d.which,
-//                               k ^= k<48 ? Z<<8
-//                                         : k<64 ? d.shiftKey<<4
-//                                                : k<128 ? !d.shiftKey<<5
-//                                                        : 1<<7 | (k<192 ? !d.shiftKey<<4 : d.shiftKey<<5),
+//                               k ^= k<16 ? Z<<8
+//                                         : k<32 ? 65522
+//                                                : k<64 ? d.shiftKey<<4
+//                                                       : k<128 ? !d.shiftKey<<5
+//                                                               : 1<<7 | !d.shiftKey<<4,
 //                        console.log("keyCode: " + d.keyCode + " k: " + k),
 //                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
 
-K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey*32,
+// 1018
+//K=function(d,e,f,g,h){return k=d.which,
+//                               k ^= k<16 ? Z<<8
+//                                         : k<32 ? 65522
+//                                                : k<64 ? d.shiftKey<<4
+//                                                       : k<128 ? !d.shiftKey<<5
+//                                                               : 1<<7 | (k<192 ? !d.shiftKey<<4 : d.shiftKey<<5),
+//                        console.log("keyCode: " + d.keyCode + " k: " + k),
+//                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+
+// 1009
+//K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
+//                               k += k<16 ? Z<<8
+//                                         : k<32 ? 65490
+//                                                : k<64 ? -e/2
+//                                                       : k<128 ? 32-e
+//                                                               : e/2-144,
+//                        console.log("keyCode: " + d.keyCode + " k: " + k),
+//                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+
+// 1019
+K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
                                k += k<16 ? Z<<8
                                          : k<32 ? 65490
                                                 : k<64 ? -e/2
@@ -97,4 +120,4 @@ N=function(d){
     }
 };
 S.onmessage=function(d,e,f,g,h){return R([].map.call(atob(d.data),D))};
-//S.onclose=function(d,e,f,g,h){return alert('closed')};
+//S.onclose=function(d,e,f,g,h){return c.width=W,c.height=H};
