@@ -1,8 +1,7 @@
 // TODO:
-// - mouse drag
 // - mouse middle,right,wheel (suppress default behavior)
 // - open and close alert
-b.style.margin=r=s=v=0;
+b.style.margin=r=s=v=m=0;
 Q=[];
 Z=255;
 S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),'base64');
@@ -25,10 +24,13 @@ E=function(d,e,f,g,h){return String.fromCharCode(d)};
 // F() -> send FBU request
 F=function(d,e,f,g,h){return C(A([3,v],0,0,W,H)),v=1};
 
-// M(event.type==mouse[d]own) -> send mousedown event
-// M(event.type==mouse[u]p) -> send mouseup event
-// M(event.type==mouse[m]ove) -> send mouse move event
-M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
+// M(event.type==mouse[m]ove) -> send mouse event
+M=function(d,e,f,g,h){return C(A([5,m],d.pageX,d.pageY))};
+
+// M(event.type==mousedown) -> send mouse button event
+// M(event.type==mouseup) -> send mouse button event
+//N=function(d,e,f,g,h){return m^=1<<d.button,M(d)};
+N=function(d,e,f,g,h){return m^=1,M(d)};
 
 // K(event.type==key[d]own) -> send key down event
 // K(event.type==key[u]p) -> send key up event
@@ -57,24 +59,24 @@ M=function(d,e,f,g,h){return C(A([5,d.type[5]=='d'?1:0],d.pageX,d.pageY))};
 //                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
 
 // 1009
-//K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
-//                               k += k<16 ? Z<<8
-//                                         : k<32 ? 65490
-//                                                : k<64 ? -e/2
-//                                                       : k<128 ? 32-e
-//                                                               : e/2-144,
-//                        console.log("keyCode: " + d.keyCode + " k: " + k),
-//                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
-
-// 1019
 K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
                                k += k<16 ? Z<<8
                                          : k<32 ? 65490
                                                 : k<64 ? -e/2
                                                        : k<128 ? 32-e
-                                                               : k<192 ? e/2-144 : e-128,
+                                                               : e/2-144,
                         console.log("keyCode: " + d.keyCode + " k: " + k),
                         C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+
+// 1019
+//K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
+//                               k += k<16 ? Z<<8
+//                                         : k<32 ? 65490
+//                                                : k<64 ? -e/2
+//                                                       : k<128 ? 32-e
+//                                                               : k<192 ? e/2-144 : e-128,
+//                        console.log("keyCode: " + d.keyCode + " k: " + k),
+//                        C(A([4,d.type[3]=='d'?1:0],0,0,k))};
 
 // RFB/VNC handshake
 R=function(d,e,f,g,h){
@@ -83,16 +85,15 @@ R=function(d,e,f,g,h){
     return s==2 ? (
         W=c.width=B(d,0),H=c.height=B(d,2),
         console.log('Connected: width ' + W + ' height ' + H),
-        onkeydown=onkeyup=K,
-        onmousedown=onmouseup=onmousemove=M,
+        onkeydown=onkeyup=K,onmousemove=M,onmousedown=onmouseup=N,
         setInterval(F,Z))
         : 0,
     s<3 ? C(['RFB 003.003\n',[1],A([2,0],1,0,0)][s++])
-        : N(Q.push.apply(Q,d));
+        : V(Q.push.apply(Q,d));
 };
 
 // Normal VNC message. Length of Q in d
-N=function(d){
+V=function(d){
     t = Q[0];
     if (!r) {
         l = [20,1,2,8+B(Q,6)][t];
