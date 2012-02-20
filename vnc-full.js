@@ -1,13 +1,20 @@
 // TODO:
 // - mouse middle,right,wheel (suppress default behavior)
 // - open and close alert
+//X=function(d,e,f,g,h){for(k in d){e=k[0]+(k[7]||'');d[e]||(d[e]=d[k])}return d}
+
+// r -> number of rects
+// s -> initialization/handshake state
+// v -> FBU request incremental state
+// m -> mouse button state
+// Q -> receive queueu (array of number 0-255)
 b.style.margin=r=s=v=m=0;
 Q=[];
-Z=255;
+
 S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),'base64');
 
 // A(d,e,f,g,h) -> concat shorts onto array d
-A=function(d,e,f,g,h){return e+1?A(d.concat(e>>8,e&Z),f,g,h):d};
+A=function(d,e,f,g,h){return e+1?A(d.concat(e>>8,e&255),f,g,h):d};
 
 // B(array,e) -> peek short from array starting at position e
 B=function(d,e,f,g,h){return (d[e]<<8)+d[e+1]};
@@ -33,13 +40,13 @@ N=function(d,e,f,g,h){return m^=1,M(d)};
 
 // K(event.type==key[d]own) -> send key down event
 // K(event.type==key[u]p) -> send key up event
-//K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?Z<<8:0)))};
-//K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:!d.shiftKey<<5, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
-//K=function(d,e,f,g,h){return k=d.which,k^=k<32?Z<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,{61:45,58:59,59:58,63:47}[k]||k))};
+//K=function(d,e,f,g,h){return C(A([4,d.type[3]=='d'?1:0],0,0,(k=d.which,k^=k>64?!d.shiftKey<<5:k<32?255<<8:0)))};
+//K=function(d,e,f,g,h){return k=d.which,k^=k<32?255<<8:k<64?d.shiftKey<<4:!d.shiftKey<<5, console.log("keyCode: " + d.keyCode + " k: " + k), C(A([4,d.type[3]=='d'?1:0],0,0,k))};
+//K=function(d,e,f,g,h){return k=d.which,k^=k<32?255<<8:k<64?d.shiftKey<<4:k<128?!d.shiftKey<<5:1<<7, C(A([4,d.type[3]=='d'?1:0],0,0,{61:45,58:59,59:58,63:47}[k]||k))};
 
 // 1008
 //K=function(d,e,f,g,h){return k=d.which,
-//                               k ^= k<16 ? Z<<8
+//                               k ^= k<16 ? 255<<8
 //                                         : k<32 ? 65522
 //                                                : k<64 ? d.shiftKey<<4
 //                                                       : k<128 ? !d.shiftKey<<5
@@ -49,7 +56,7 @@ N=function(d,e,f,g,h){return m^=1,M(d)};
 
 // 1018
 //K=function(d,e,f,g,h){return k=d.which,
-//                               k ^= k<16 ? Z<<8
+//                               k ^= k<16 ? 255<<8
 //                                         : k<32 ? 65522
 //                                                : k<64 ? d.shiftKey<<4
 //                                                       : k<128 ? !d.shiftKey<<5
@@ -59,7 +66,7 @@ N=function(d,e,f,g,h){return m^=1,M(d)};
 
 // 1009
 K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
-                               k += k<16 ? Z<<8
+                               k += k<16 ? 255<<8
                                          : k<32 ? 65490
                                                 : k<64 ? -e/2
                                                        : k<128 ? 32-e
@@ -69,7 +76,7 @@ K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
 
 // 1019
 //K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
-//                               k += k<16 ? Z<<8
+//                               k += k<16 ? 255<<8
 //                                         : k<32 ? 65490
 //                                                : k<64 ? -e/2
 //                                                       : k<128 ? 32-e
@@ -80,10 +87,10 @@ K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
 // Support all buttons and suppress bubbling and default actions
 ////U=function(d,e,f,g,h){return d.stopPropagation(),d.preventDefault(),false};
 ////M=function(d,e,f,g,h){return C(A([5,m],d.pageX,d.pageY)),U(d)};
-////N=function(d,e,f,g,h){return d.type[5]=='d'?m|=1<<d.button:m&=Z-1<<d.button,M(d)};
+////N=function(d,e,f,g,h){return d.type[5]=='d'?m|=1<<d.button:m&=255-1<<d.button,M(d)};
 ////// More symbol support with default action suppression (for tab)
 ////K=function(d,e,f,g,h){return k=d.which,e=d.shiftKey<<5,
-////                               k += k<16 ? Z<<8
+////                               k += k<16 ? 255<<8
 ////                                         : k<32 ? 65490
 ////                                                : k<64 ? -e/2
 ////                                                       : k<128 ? 32-e
@@ -100,7 +107,7 @@ R=function(d,e,f,g,h){
         console.log('Connected: width ' + W + ' height ' + H),
         onkeydown=onkeyup=K,onmousemove=M,onmousedown=onmouseup=N,
 ////        oncontextmenu=U,
-        setInterval(F,Z))
+        setInterval(F,255))
         : 0,
     s<3 ? C(['RFB 003.003\n',[1],A([2,0],1,0,0)][s++])
         : V(Q.push.apply(Q,d));
@@ -121,18 +128,18 @@ V=function(d){
         w=B(Q,4),h=B(Q,6);
         l = 12+4*w*h;
         //console.log('Q.length: ' + Q.length + ' size: 12 + 4*' + w + 'x' + h + '=' + (12 + 4*w*h));
-        if (!l||Q.length<l) break;
+        if (!l||Q.length<l) return;
         //console.log('w:' + w);
         I=a.createImageData(w,h);
         z=I.data;
         //console.log('Drawing image ' + w + 'x' + h);
         for (i=0,j=12; j<l; i+=4,j+=4) {
             for (k=0;k<3;k++) z[i+k]=Q[j+2-k];
-            z[i+3] = Z; // Set Alpha
+            z[i+3] = 255; // Set Alpha
         }
         a.putImageData(I,B(Q,0),B(Q,2));
         Q.splice(0,l)
     }
 };
 S.onmessage=function(d,e,f,g,h){return R([].map.call(atob(d.data),D))};
-//S.onclose=function(d,e,f,g,h){return c.width=W,c.height=H};
+//S.onclose=function(d,e,f,g,h){return alert("closed")};
