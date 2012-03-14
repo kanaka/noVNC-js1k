@@ -26,7 +26,7 @@ for the contest but I was inspired to see if I could put noVNC on
 a diet and reach the 10K size limit.
 [Diet noVNC](https://github.com/kanaka/diet-noVNC) was the result.
 Diet noVNC weighs in at just under 10K (after minification using
-[packer](http://www.iteral.com/)). At the time, the full version of
+[packer](http://dean.edwards.name/packer/)). At the time, the full version of
 noVNC was about 120K of Javascript.
 
 After reducing noVNC by an order of magnitude (base 10), the obvious
