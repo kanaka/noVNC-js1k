@@ -32,7 +32,7 @@ noVNC was about 120K of Javascript.
 After reducing noVNC by an order of magnitude (base 10), the obvious
 next question is, "How much smaller is possible?". Okay, that may not
 be such an obvious question, but in Feb 2012 I got wind that the
-[JS1K](js1k.com) competition was running again and I wondered if it
+[JS1K](http://js1k.com) competition was running again and I wondered if it
 was even feasible to create a browser based VNC client in just
 1 kilobyte (technicaly 1 kibibyte) of Javascript.
 
