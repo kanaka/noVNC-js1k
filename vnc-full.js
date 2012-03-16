@@ -11,7 +11,7 @@
 b.style.margin=r=s=v=m=0;
 Q=[];
 
-S=new(window.MozWebSocket||WebSocket)(location.hash.slice(1),'base64');
+S=new(window.MozWebSocket||WebSocket)(prompt("WebSocket/VNC URI:"),'base64');
 
 // A(d,e,f,g,h) -> concat shorts onto array d
 A=function(d,e,f,g,h){return e+1?A(d.concat(e>>8,e&255),f,g,h):d};
@@ -142,4 +142,4 @@ V=function(d){
     }
 };
 S.onmessage=function(d,e,f,g,h){return R([].map.call(atob(d.data),D))};
-//S.onclose=function(d,e,f,g,h){return alert("closed")};
+S.onclose=function(d,e,f,g,h){return alert("closed")};
