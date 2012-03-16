@@ -3,14 +3,20 @@
 
 ### Usage
 
-The WebSocket URI is specified in the fragment identifier (after the '#' hash):
-    
-    http://example.com/vnc.html#ws://vncserver:5900
+You will need a VNC server that supports WebSocket connections (e.g.
+recent libvncserver/x11vnc) or you will need
+[websockify](https://github.com/kanaka/websockify) to bridge between
+the browser and your VNC server.
 
-You will also need a VNC server that supports WebSocket
-connections (e.g. recent libvncserver/x11vnc) or you will
-need [websockify](https://github.com/kanaka/websockify) to
-bridge between the browser and your VNC server.
+As an alternative, there is a simple VNC server that you can download
+and run like this:
+
+    wget https://github.com/downloads/kanaka/noVNC-js1k/heart-vnc-server.zip
+    unzip heart-vnc-server.zip
+    ./heart-vnc-server
+
+Then load the vnc.html file and when prompted enter
+"ws://localhost:5900"
 
 
 ### What led you to this insanity?
