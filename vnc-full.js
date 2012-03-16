@@ -1,3 +1,8 @@
+// VNC client in less than 1K of Javascript
+// - Prompts for a WebSocket URI to a VNC server
+// - Use websockify (https://github.com/kanaka/websockify) to add
+//   WebSocket support to VNC servers without direct support.
+
 // TODO:
 // - mouse middle,right,wheel (suppress default behavior)
 // - open and close alert
