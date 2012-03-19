@@ -15,8 +15,9 @@ and run like this:
     unzip heart-vnc-server.zip
     ./heart-vnc-server
 
-Then load the vnc.html file and when prompted enter
-"ws://localhost:5900"
+Then load the [live version of noVNC-js1k](http://kanaka.github.com/noVNC/noVNC-js1k/vnc.html).
+When prompted enter "ws://localhost:5900".
+
 
 
 ### What led you to this insanity?
